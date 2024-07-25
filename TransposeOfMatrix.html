@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Transpose</title>
+</head>
+
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #333;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 50vw;
+    width: 100%;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #fda085;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #f6d365;
+}
+
+#matrix-inputs {
+    margin: 20px 0;
+}
+
+#matrix-inputs input {
+    width: 60px;
+    margin: 5px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#result-section {
+    margin-top: 30px;
+}
+
+#transposed-matrix {
+    display: grid;
+    grid-gap: 5px;
+}
+
+#transposed-matrix div {
+    background: #fda085;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+</style>
+
+<body>
+    <div class="container">
+        <h1>Matrix Transpose Calculator</h1>
+        <div id="input-section">
+            <label for="rows">Number of rows:</label>
+            <input type="number" id="rows" name="rows" min="1" required>
+            <label for="columns">Number of columns:</label>
+            <input type="number" id="columns" name="columns" min="1" required>
+            <button onclick="generateMatrixInputs()">Generate Matrix Inputs</button>
+        </div>
+        <form id="matrix-form" onsubmit="transposeMatrix(event)">
+            <div id="matrix-inputs"></div>
+            <button type="submit">Transpose Matrix</button>
+        </form>
+        <div id="result-section">
+            <h2>Transposed Matrix</h2>
+            <div id="transposed-matrix"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+
+<script>
+    function generateMatrixInputs() {
+    const rows = parseInt(document.getElementById('rows').value);
+    const columns = parseInt(document.getElementById('columns').value);
+    const matrixInputs = document.getElementById('matrix-inputs');
+
+    matrixInputs.innerHTML = '';
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.name = `matrix-${i}-${j}`;
+            input.required = true;
+            matrixInputs.appendChild(input);
+        }
+        matrixInputs.appendChild(document.createElement('br'));
+    }
+}
+
+function transposeMatrix(event) {
+    event.preventDefault();
+
+    const rows = parseInt(document.getElementById('rows').value);
+    const columns = parseInt(document.getElementById('columns').value);
+    const matrix = [];
+
+    for (let i = 0; i < rows; i++) {
+        const row = [];
+        for (let j = 0; j < columns; j++) {
+            const value = parseFloat(document.querySelector(`input[name="matrix-${i}-${j}"]`).value);
+            row.push(value);
+        }
+        matrix.push(row);
+    }
+
+    const transposedMatrix = transpose(matrix);
+    displayTransposedMatrix(transposedMatrix);
+}
+
+function transpose(matrix) {
+    return matrix[0].map((_, colIndex) => matrix.map(row => row[colIndex]));
+}
+
+function displayTransposedMatrix(transposedMatrix) {
+    const transposedMatrixDiv = document.getElementById('transposed-matrix');
+    transposedMatrixDiv.innerHTML = '';
+    transposedMatrixDiv.style.gridTemplateColumns = `repeat(${transposedMatrix[0].length}, 50px)`;
+
+    transposedMatrix.forEach(row => {
+        row.forEach(value => {
+            const cell = document.createElement('div');
+            cell.textContent = value;
+            cell.style.border = '1px solid #ccc';
+            cell.style.padding = '10px';
+            cell.style.textAlign = 'center';
+            transposedMatrixDiv.appendChild(cell);
+        });
+    });
+}
+
+</script>
+
+</html>

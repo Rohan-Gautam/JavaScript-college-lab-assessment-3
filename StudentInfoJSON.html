@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information</title>
+</head>
+
+<style>
+    body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #65b7f6 0%, #780476 100%);
+    color: #333;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+#student-info {
+    font-size: 18px;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.student {
+    margin-bottom: 20px;
+}
+
+.student h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.student ul {
+    list-style: none;
+    padding: 0;
+}
+
+.student li {
+    margin-bottom: 5px;
+}
+
+</style>
+
+<body>
+    <div class="container">
+        <h1>Student Information</h1>
+        <div id="student-info"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+<script>
+    // JSON object containing student information
+const students = [
+    {
+        name: "Jaggu",
+        age: 20,
+        grade: "Sophomore",
+        subjects: ["Math", "Science", "History"]
+    },
+    {
+        name: "Ramesh",
+        age: 19,
+        grade: "Freshman",
+        subjects: ["English", "Art", "Biology"]
+    },
+    {
+        name: "Alice Kumari",
+        age: 21,
+        grade: "Junior",
+        subjects: ["Physics", "Chemistry", "Math"]
+    }
+];
+
+// Function to display student information
+function displayStudentInfo() {
+    const studentInfoDiv = document.getElementById('student-info');
+    studentInfoDiv.innerHTML = ''; // Clear any existing content
+
+    students.forEach(student => {
+        const studentDiv = document.createElement('div');
+        studentDiv.className = 'student';
+
+        const studentName = document.createElement('h2');
+        studentName.textContent = `Name: ${student.name}`;
+        studentDiv.appendChild(studentName);
+
+        const studentAge = document.createElement('p');
+        studentAge.textContent = `Age: ${student.age}`;
+        studentDiv.appendChild(studentAge);
+
+        const studentGrade = document.createElement('p');
+        studentGrade.textContent = `Grade: ${student.grade}`;
+        studentDiv.appendChild(studentGrade);
+
+        const studentSubjects = document.createElement('p');
+        studentSubjects.textContent = 'Subjects:';
+        studentDiv.appendChild(studentSubjects);
+
+        const subjectsList = document.createElement('ul');
+        student.subjects.forEach(subject => {
+            const subjectItem = document.createElement('li');
+            subjectItem.textContent = subject;
+            subjectsList.appendChild(subjectItem);
+        });
+        studentDiv.appendChild(subjectsList);
+
+        studentInfoDiv.appendChild(studentDiv);
+    });
+}
+
+// Call the function to display student information when the page loads
+window.onload = displayStudentInfo;
+
+</script>
+
+</html>

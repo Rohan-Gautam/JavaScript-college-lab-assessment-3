@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Information</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #employee-info {
+            font-size: 18px;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .employee {
+            margin-bottom: 20px;
+        }
+
+        .employee h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .employee ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .employee li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Information</h1>
+        <div id="employee-info"></div>
+    </div>
+
+    <script>
+        // JSON object containing employee information
+        const employees = [
+            {
+                name: "Alice Brown",
+                age: 30,
+                position: "Software Engineer",
+                department: "IT",
+                skills: ["JavaScript", "React", "Node.js"]
+            },
+            {
+                name: "Bob Smith",
+                age: 40,
+                position: "Project Manager",
+                department: "Operations",
+                skills: ["Leadership", "Agile", "Communication"]
+            },
+            {
+                name: "Charlie Johnson",
+                age: 35,
+                position: "Data Analyst",
+                department: "Marketing",
+                skills: ["Python", "SQL", "Machine Learning"]
+            }
+        ];
+
+        // Function to display employee information
+        function displayEmployeeInfo() {
+            const employeeInfoDiv = $('#employee-info');
+            employeeInfoDiv.empty(); // Clear any existing content
+
+            employees.forEach(employee => {
+                const employeeDiv = $('<div class="employee"></div>');
+
+                const employeeName = $('<h2></h2>').text(`Name: ${employee.name}`);
+                employeeDiv.append(employeeName);
+
+                const employeeAge = $('<p></p>').text(`Age: ${employee.age}`);
+                employeeDiv.append(employeeAge);
+
+                const employeePosition = $('<p></p>').text(`Position: ${employee.position}`);
+                employeeDiv.append(employeePosition);
+
+                const employeeDepartment = $('<p></p>').text(`Department: ${employee.department}`);
+                employeeDiv.append(employeeDepartment);
+
+                const employeeSkills = $('<p></p>').text('Skills:');
+                employeeDiv.append(employeeSkills);
+
+                const skillsList = $('<ul></ul>');
+                employee.skills.forEach(skill => {
+                    const skillItem = $('<li></li>').text(skill);
+                    skillsList.append(skillItem);
+                });
+                employeeDiv.append(skillsList);
+
+                employeeInfoDiv.append(employeeDiv);
+            });
+        }
+
+        // Call the function to display employee information when the page loads
+        $(document).ready(displayEmployeeInfo);
+    </script>
+</body>
+</html>
